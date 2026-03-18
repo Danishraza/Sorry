@@ -3,7 +3,6 @@
 <head>
   <title>Sorry Anam ❤️</title>
 
-  <!-- Mobile Fix -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -27,58 +26,32 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       max-width: 90%;
       width: 350px;
-      animation: fadeIn 1.5s ease;
-      z-index: 1;
-    }
-
-    h2 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 16px;
     }
 
     button {
-      padding: 10px 20px;
+      padding: 10px 15px;
       border: none;
       border-radius: 10px;
+      margin: 5px;
       background: #ff4d6d;
       color: white;
       font-size: 16px;
       cursor: pointer;
-      transition: 0.3s;
     }
 
-    button:hover {
-      background: #ff1e4d;
-      transform: scale(1.05);
+    #noBtn {
+      position: relative;
     }
 
-    /* Fade animation */
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    /* Floating hearts */
     .heart {
       position: absolute;
       color: #ff4d6d;
-      font-size: 20px;
       animation: floatUp 6s linear infinite;
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(100vh);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh);
-        opacity: 0;
-      }
+      0% {transform: translateY(100vh); opacity: 1;}
+      100% {transform: translateY(-10vh); opacity: 0;}
     }
   </style>
 </head>
@@ -88,15 +61,35 @@
 <div class="box">
   <h2>Anam, I am really sorry 😔</h2>
   <p>Mujhse galti ho gayi... I didn’t mean to hurt you.</p>
-  <p>Can we fix this? ❤️</p>
 
   <button onclick="showLove()">Click here</button>
 
   <p id="msg"></p>
+
+  <!-- Cat GIF -->
+  <div id="catLove" style="display:none;">
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+         style="width:100%; border-radius:15px;">
+    <p>Just like them… I miss us 🥺❤️</p>
+  </div>
+
+  <!-- YES / NO -->
+  <div id="choices" style="display:none;">
+    <p>Will you forgive me? ❤️</p>
+    <button onclick="yesLove()">YES 💖</button>
+    <button id="noBtn" onmouseover="moveNo()">NO 😝</button>
+  </div>
+
+  <p id="finalMsg"></p>
 </div>
+
+<!-- Music -->
+<audio id="music" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
 
 <script>
 function showLove() {
+  document.getElementById("music").play();
+
   const text = "I really care about you... please gussa mat raho ❤️";
   let i = 0;
   document.getElementById("msg").innerHTML = "";
@@ -104,11 +97,34 @@ function showLove() {
   let interval = setInterval(() => {
     document.getElementById("msg").innerHTML += text.charAt(i);
     i++;
-    if (i >= text.length) clearInterval(interval);
+
+    if (i >= text.length) {
+      clearInterval(interval);
+
+      setTimeout(() => {
+        document.getElementById("catLove").style.display = "block";
+        document.getElementById("choices").style.display = "block";
+      }, 500);
+    }
   }, 50);
 }
 
-/* Create floating hearts */
+// YES button
+function yesLove() {
+  document.getElementById("finalMsg").innerHTML =
+    "Yayyy ❤️ I promise I’ll make everything right 🥺💖";
+}
+
+// NO button runs away 😆
+function moveNo() {
+  let btn = document.getElementById("noBtn");
+  let x = Math.random() * 200 - 100;
+  let y = Math.random() * 200 - 100;
+
+  btn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+// Floating hearts
 function createHeart() {
   const heart = document.createElement("div");
   heart.classList.add("heart");
@@ -117,11 +133,8 @@ function createHeart() {
   heart.style.fontSize = Math.random() * 20 + 10 + "px";
   document.body.appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
+  setTimeout(() => heart.remove(), 6000);
 }
-
 setInterval(createHeart, 500);
 </script>
 
