@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sorry Anam ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .box {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(15px);
+      padding: 25px;
+      border-radius: 20px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      max-width: 90%;
+      width: 340px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+    }
+
+    p {
+      font-size: 15px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px;
+      margin: 5px;
+      background: white;
+      color: #ff4d6d;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      position: relative;
+    }
+
+    img {
+      margin-top: 10px;
+      border-radius: 15px;
+    }
+
+    .glow {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff4d6d, 0 0 30px #ff4d6d;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #fff, 0 0 10px #ff4d6d; }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px #ff4d6d; }
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .heart {
+      position: absolute;
+      color: white;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {transform: translateY(100vh); opacity: 1;}
+      100% {transform: translateY(-10vh); opacity: 0;}
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2 class="glow">Anam ❤️</h2>
+  <p>I’m really sorry 😔</p>
+
+  <button onclick="showLove()">Tap if you still care 💖</button>
+
+  <p id="msg"></p>
+
+  <div id="catLove" style="display:none;">
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="100%">
+    <p>Kaash hum bhi aise hi saath hote... 🥺❤️</p>
+  </div>
+
+  <div id="choices" style="display:none;">
+    <p>Will you forgive me? ❤️</p>
+    <button onclick="yesLove()">YES 💖</button>
+    <button id="noBtn" onclick="moveNo()">NO 😝</button>
+  </div>
+
+  <p id="finalMsg" class="glow"></p>
+</div>
+
+<audio id="music" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+
+<script>
+function showLove() {
+  let music = document.getElementById("music");
+  music.volume = 0.5;
+  music.play().catch(()=>{});
+
+  const text = "Anam... tum meri life me bahut important ho 🥺 mujhe sach me afsos hai... please mujhse baat kar lo ❤️";
+  let i = 0;
+  document.getElementById("msg").innerHTML = "";
+
+  let interval = setInterval(() => {
+    document.getElementById("msg").innerHTML += text.charAt(i);
+    i++;
+
+    if (i >= text.length) {
+      clearInterval(interval);
+
+      setTimeout(() => {
+        document.getElementById("catLove").style.display = "block";
+        document.getElementById("choices").style.display = "block";
+      }, 500);
+    }
+  }, 40);
+}
+
+function yesLove() {
+  document.getElementById("finalMsg").innerHTML =
+    "Anam ❤️ thank you… main promise karta hoon, ab kabhi tumhe hurt nahi karunga 🥺 bas tum saath rehna 💖";
+}
+
+function moveNo() {
+  let btn = document.getElementById("noBtn");
+  let x = Math.random() * 200 - 100;
+  let y = Math.random() * 200 - 100;
+  btn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 10 + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>
